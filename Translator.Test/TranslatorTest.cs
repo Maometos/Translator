@@ -10,8 +10,8 @@ public class TranslatorTest
     public TranslatorTest(ITestOutputHelper output)
     {
         this.output = output;
-        translator.AddWord("hello", "hola");
-        translator.AddWord("world", "mundo");
+        translator.Register("hello", "hola");
+        translator.Register("world", "mundo");
     }
 
     [Fact]

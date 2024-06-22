@@ -5,13 +5,13 @@ namespace Translator;
 
 public class Translator
 {
-    // [0]Lower case words, [1]Title case words, [2]Upper case words, [3]Numbers, [4]Spaces and [5]any non-word characters.
+    // [0] Lower case words, [1] Title case words, [2] Upper case words, [3] Numbers, [4] Spaces, [5] any non-word characters.
     private string[] patterns = [@"[a-z]+", @"^[A-Z][a-z]+", @"[A-Z]+", @"\d+", @"\s+", @"\W+"];
     private Dictionary<string, string> dictionary = new();
 
-    public void AddWord(string word, string meaning)
+    public void Register(string word, string meaning)
     {
-        dictionary[word] = meaning;
+        dictionary[word.ToLower()] = meaning.ToLower();
     }
 
     public string Translate(string text)
@@ -26,12 +26,10 @@ public class Translator
             // The time complexity here is constant O(1) because there are just 6 patterns.
             for (int i = 0; i < patterns.Length; i++)
             {
-                // Match only the first token in the string.
                 var match = Regex.Match(input.ToString(), "^" + patterns[i]);
                 if (match.Success)
                 {
                     var token = match.Value;
-
                     // Check the words only
                     if ((i == 0 || i == 1 || i == 2) && dictionary.ContainsKey(match.Value.ToLower()))
                     {
